@@ -12,7 +12,7 @@ public class NumIntSeq {
 
 		long numSteps = 0;
 		double sum = 0.0;
-		int tasks = 20;
+		int tasks = 5;
 
 
 		/* parse command line */
@@ -28,36 +28,33 @@ public class NumIntSeq {
 			System.exit(1);
 		}
 		
-		
+		//Pool with as much threads as the number of available cores
 		ExecutorService pool = Executors.newFixedThreadPool(CORES);
-		ArrayList<Future<Double>> futures = new ArrayList<Future<Double>>();
 		
+		//Variable that holds the results one by one
+		Future<Double> result;		
+		//Loops the task is going to take care of
+		long loops = numSteps / tasks;
+		//First and last values of loops per task
+		long start = 0, finish = 0;
 		
+
 		
 		/* start timing */
 		long startTime = System.currentTimeMillis();
 
 		double step = 1.0 / (double) numSteps;
-		Future<Double> result;
-		
-		//Loops the task is going to take care of
-		long loops = numSteps / CORES;
-		//First and last values of loops per task
-		long start = 0, finish = 0;
-		
 		for(int i = 0; i < tasks; i++) {
+			
 			
 			finish += loops;
 			result = pool.submit(new ThreadStuff(step, start, finish));
 			start += loops;
-			
-			futures.add(result);
-			
-			sum += futures.get(i).get();
-			System.out.println(sum);
+						
+			sum += result.get();
 		}
 
-		
+		//My pi
 		double pi = sum * step;
 
 		/* end timing and print result */

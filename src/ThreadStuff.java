@@ -18,7 +18,7 @@ class ThreadStuff implements Callable<Double>{
 	public Double call() throws Exception {
 
 		/* do computation */
-		for (long i = start; i < finish; ++i) {
+		for (long i = start; i < finish; i++) {
 			double x = ((double) i + 0.5) * step;
 			sum += 4.0 / (1.0 + x * x);
 		}
