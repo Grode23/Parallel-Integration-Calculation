@@ -36,7 +36,7 @@ public class NumIntSeq {
 			System.out.println("Choose option: (1 or 2)");
 			System.out.println("1. ThreadPool");
 			System.out.println("2. ForkJoin");
-
+			System.out.print("Your answer: ");
 			decision = sc.nextInt();
 
 		} while (decision != 1 && decision != 2);
@@ -98,13 +98,16 @@ public class NumIntSeq {
 		return pi;
 
 	}
-	
-	
+
 	private static double runForkJoinOption(long numSteps) {
+
+		double step = 1.0 / (double) numSteps;
 		
-	      ForkJoinPool forkJoinPool = new ForkJoinPool(CORES);
-	      Double pi = forkJoinPool.invoke(new ForkJoinOption(numSteps));
-		
+		ForkJoinPool forkJoinPool = new ForkJoinPool(CORES);
+		Double sum = forkJoinPool.invoke(new ForkJoinOption(0, numSteps, step));
+
+		double pi = sum * step;
+		;
 		return pi;
 	}
 }
