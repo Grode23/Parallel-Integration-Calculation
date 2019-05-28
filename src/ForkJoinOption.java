@@ -36,21 +36,6 @@ public class ForkJoinOption extends RecursiveTask<Double> {
 			return rightResult + leftResult;
 		}
 
-//        for (long i=0; i < numSteps; ++i) {
-//            double x = ((double)i+0.5)*step;
-//            sum += 4.0/(1.0+x*x);
-//            
-//        }
-//        double pi = sum * step;
-		/*
-		 * if(high - low <= 10) { long sum = 0;
-		 * 
-		 * for(int i = low; i < high; ++i) sum += array[i]; return sum; } else { int mid
-		 * = low + (high - low) / 2; Sum left = new Sum(array, low, mid); Sum right =
-		 * new Sum(array, mid, high); left.fork(); long rightResult = right.compute();
-		 * long leftResult = left.join(); return leftResult + rightResult; }
-		 */
-
 	}
 
 }

@@ -102,7 +102,7 @@ public class NumIntSeq {
 	private static double runForkJoinOption(long numSteps) {
 
 		double step = 1.0 / (double) numSteps;
-		
+
 		ForkJoinPool forkJoinPool = new ForkJoinPool(CORES);
 		Double sum = forkJoinPool.invoke(new ForkJoinOption(0, numSteps, step));
 
