@@ -5,6 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 
+/**
+ * numSteps, step, pi, sum and x are parameters of the algorithm that is used,
+ * so they are not going to be explained
+ */
 public class NumIntSeq {
 
 	// Number of cores in the PC
@@ -44,6 +48,7 @@ public class NumIntSeq {
 		/* start timing */
 		long startTime = System.currentTimeMillis();
 
+		// Run a solution, depending on your decision
 		switch (decision) {
 		case 1:
 			pi = runThreadPoolOption(numSteps);
@@ -58,16 +63,21 @@ public class NumIntSeq {
 
 		sc.close();
 
+		// Result displayed in console
 		System.out.printf("sequential program results with %d steps\n", numSteps);
 		System.out.printf("computed pi = %22.20f\n", pi);
 		System.out.printf("difference between estimated pi and Math.PI = %.20f\n", Math.abs(pi - Math.PI));
 		System.out.printf("time to compute = %f seconds\n", (double) (endTime - startTime) / 1000);
 	}
 
+	// ThreadPool (executors) solution
 	private static double runThreadPoolOption(long numSteps) throws InterruptedException, ExecutionException {
 
 		double sum = 0.0;
-		int tasks = 20; // Number of tasks by default
+		// Number of tasks by default
+		// Definitely not an ideal way of handling tasks, but I want to keep the user
+		// interface (and the project in general) as simple as possible
+		int tasks = 20;
 
 		// Pool with as much threads as the number of available cores
 		ExecutorService pool = Executors.newFixedThreadPool(CORES);
@@ -99,6 +109,7 @@ public class NumIntSeq {
 
 	}
 
+	// ForkJoin solution
 	private static double runForkJoinOption(long numSteps) {
 
 		double step = 1.0 / (double) numSteps;
@@ -107,7 +118,7 @@ public class NumIntSeq {
 		Double sum = forkJoinPool.invoke(new ForkJoinOption(0, numSteps, step));
 
 		double pi = sum * step;
-		;
+
 		return pi;
 	}
 }
