@@ -15,7 +15,7 @@ class TaskCallable implements Callable<Double> {
 	@Override
 	public Double call() throws Exception {
 
-		/* do computation */
+		// do computation
 		for (long i = start; i < finish; i++) {
 			double x = ((double) i + 0.5) * step;
 			sum += 4.0 / (1.0 + x * x);
